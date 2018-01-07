@@ -7,7 +7,8 @@ import {
     View,
     Dimensions,
     TouchableOpacity,
-    TextInput
+    TextInput,
+    FlatList
 } from 'react-native';
 
 const width = Dimensions.get('screen').width;
@@ -17,7 +18,8 @@ export default class Post extends Component {
     constructor(props){
         super(props);
         this.state = {
-            foto: this.props.foto
+            foto: this.props.foto,
+            valorComentario: ''
         };
     }
 
@@ -69,6 +71,24 @@ export default class Post extends Component {
         )
     }
 
+    adicionaComentario(){
+        if(this.state.valorComentario === '') return;
+
+        const novaLista = [...this.state.foto.comentarios, {
+            id:this.state.valorComentario,
+            login:'meuUsuario',
+            texto:this.state.valorComentario
+        }];
+
+        const fotoAtualizada = {
+            ...this.state.foto,
+            comentarios: novaLista
+        };
+
+        this.setState({foto: fotoAtualizada, valorComentario:''});
+        this.inputComentario.clear();
+    }
+
     render(){
         const { foto } = this.state;
 
@@ -92,18 +112,28 @@ export default class Post extends Component {
                     {this.exibeLikes(foto.likers)}
 
                     {this.exibeLegenda(foto)}
-                    {foto.comentarios.map(comentario => 
-                        <View style={styles.comentario} key={comentario.id}>
-                            <Text style={styles.tituloComentario}>{comentario.login}</Text>
-                            <Text>{comentario.texto}</Text>
+
+                    <FlatList
+                        data={foto.comentarios}
+                        keyExtractor={item => item.id}
+                        renderItem={({item}) => 
+                        <View style={styles.comentario}>
+                            <Text style={styles.tituloComentario}>{item.login}</Text>
+                            <Text>{item.texto}</Text>
                         </View>
-                    )}
+                        }/>
 
                     <View style={styles.novoComentarioContainer}>
                         <TextInput style={styles.novoComentario}
-                            placeholder={"Adicione um comentário"}/>
-                        <Image style={styles.novoComentarioIcone} 
-                            source={require('../../resources/img/send.png')}/>
+                            placeholder={"Adicione um comentário"}
+                            ref={input => this.inputComentario = input}
+                            onChangeText={texto => this.setState({valorComentario: texto})}/>
+
+                        <TouchableOpacity 
+                            onPress={this.adicionaComentario.bind(this)}>
+                            <Image style={styles.novoComentarioIcone} 
+                                source={require('../../resources/img/send.png')}/>
+                        </TouchableOpacity>
                     </View>
                 </View>
             </View>
