@@ -11,6 +11,7 @@ import {
   Text,
   Image,
   View,
+  ScrollView,
   Dimensions
 } from 'react-native';
 
@@ -25,7 +26,7 @@ export default class App extends Component<{}> {
     ];
 
     return (
-      <View>
+      <ScrollView>
         {fotos.map(foto => 
           <View key={foto.id}>
             <Text>{foto.usuario}</Text>
@@ -33,7 +34,7 @@ export default class App extends Component<{}> {
               style={{width:width, height:width}}/>
           </View>
         )}
-      </View>
+      </ScrollView>
     );
   }
 }
