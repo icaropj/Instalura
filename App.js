@@ -12,6 +12,7 @@ import {
   Image,
   View,
   ScrollView,
+  FlatList,
   Dimensions
 } from 'react-native';
 
@@ -26,15 +27,17 @@ export default class App extends Component<{}> {
     ];
 
     return (
-      <ScrollView>
-        {fotos.map(foto => 
-          <View key={foto.id}>
-            <Text>{foto.usuario}</Text>
+      <FlatList
+      keyExtractor={item => item.id}
+        data={fotos}
+        renderItem={ ({item}) =>
+          <View>
+            <Text>{item.usuario}</Text>
             <Image source={require('./resources/img/s2-checked.png')}
               style={{width:width, height:width}}/>
           </View>
-        )}
-      </ScrollView>
+        }
+      />
     );
   }
 }
