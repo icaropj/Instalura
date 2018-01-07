@@ -16,11 +16,11 @@ export default class Post extends Component {
         return (
             <View>
                 <View style={styles.cabecalho}>
-                <Image source={require('./../../resources/img/s2-checked.png')}
+                <Image source={{uri: this.props.item.urlPerfil}}
                     style={styles.fotoPerfil}/>
-                <Text>{this.props.item.usuario}</Text>
+                <Text>{this.props.item.loginUsuario}</Text>
                 </View>
-                <Image source={require('./../../resources/img/s2-checked.png')}
+                <Image source={{uri:this.props.item.urlFoto}}
                 style={styles.fotoPost}/>
             </View>
         )
