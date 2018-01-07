@@ -32,12 +32,34 @@ export default class App extends Component<{}> {
         data={fotos}
         renderItem={ ({item}) =>
           <View>
-            <Text>{item.usuario}</Text>
+            <View style={styles.cabecalho}>
+              <Image source={require('./resources/img/s2-checked.png')}
+                style={styles.fotoPerfil}/>
+              <Text>{item.usuario}</Text>
+            </View>
             <Image source={require('./resources/img/s2-checked.png')}
-              style={{width:width, height:width}}/>
+              style={styles.fotoPost}/>
           </View>
         }
       />
     );
   }
 }
+
+const styles = StyleSheet.create({
+  cabecalho:{
+    margin:10, 
+    flexDirection: 'row', 
+    alignItems:'center'
+  },
+  fotoPerfil:{
+    marginRight:10, 
+    borderRadius:20 , 
+    width:40, 
+    height:40
+  },
+  fotoPost:{
+    width:width, 
+    height:width
+  }
+})
