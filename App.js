@@ -31,7 +31,7 @@ export default class App extends Component {
       keyExtractor={item => item.id}
         data={this.state.fotos}
         renderItem={ ({item}) =>
-          <Post item={item}/>
+          <Post foto={item}/>
         }
       />
     );
