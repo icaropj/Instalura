@@ -21,9 +21,24 @@ export default class Post extends Component {
     }
 
     like(){
+        const { foto } = this.state;
+
+        let novaLista = [];
+        if(!this.state.foto.isLiked){
+            novaLista = [
+                ...foto.likers,
+                {login:'meuUsuario'}
+            ]
+        }else{
+            novaLista = foto.likers.filter(liker => {
+                return liker.login !== 'meuUsuario'
+            })
+        }
+
         const fotoAtualizada = {
-            ...this.state.foto,
-            isLiked: !this.state.foto.isLiked
+            ...foto,
+            isLiked: !foto.isLiked,
+            likers: novaLista
         }
         this.setState({foto:fotoAtualizada});
     }
