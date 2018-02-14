@@ -27,7 +27,7 @@ export default class App extends Component {
 
   render() {
     return (
-      <FlatList
+      <FlatList style={styles.container}
       keyExtractor={item => item.id}
         data={this.state.fotos}
         renderItem={ ({item}) =>
@@ -38,4 +38,10 @@ export default class App extends Component {
   }
 }
 
+const margin = Platform.OS === 'ios' ? 20 : 0;
+const styles = StyleSheet.create({
+  container:{
+    marginTop:margin
+  }
+});
 
