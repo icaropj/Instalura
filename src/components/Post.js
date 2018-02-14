@@ -95,9 +95,9 @@ export default class Post extends Component {
         return (
             <View>
                 <View style={styles.cabecalho}>
-                <Image source={{uri: foto.urlPerfil}}
-                    style={styles.fotoPerfil}/>
-                <Text>{foto.loginUsuario}</Text>
+                    <Image source={{uri: foto.urlPerfil}}
+                        style={styles.fotoPerfil}/>
+                    <Text>{foto.loginUsuario}</Text>
                 </View>
                 <Image source={{uri:foto.urlFoto}}
                 style={styles.fotoPost}/>
@@ -127,7 +127,8 @@ export default class Post extends Component {
                         <TextInput style={styles.novoComentario}
                             placeholder={"Adicione um comentário"}
                             ref={input => this.inputComentario = input}
-                            onChangeText={texto => this.setState({valorComentario: texto})}/>
+                            onChangeText={texto => this.setState({valorComentario: texto})}
+                            underlineColorAndroid="transparent"/>
 
                         <TouchableOpacity 
                             onPress={this.adicionaComentario.bind(this)}>
