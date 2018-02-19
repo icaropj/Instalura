@@ -25,8 +25,18 @@ export default class App extends Component {
       .then(fotos => this.setState({fotos}))
   }
 
+  buscarPorId(id){
+    return this.state.fotos.find(foto => foto.id === id);
+  }
+
+  atualizaFotos(fotoAtualizada){
+    const fotos = this.state.fotos
+    .map(foto => foto.id === fotoAtualizada.id ? fotoAtualizada : foto);
+    this.setState({fotos});
+  }
+
   like(idFoto){
-    const foto  = this.state.fotos.find(foto => foto.id === idFoto);
+    const foto  = this.buscarPorId(idFoto);
     
     let novaLista = [];
     if(!foto.isLiked){
@@ -46,14 +56,11 @@ export default class App extends Component {
         likers: novaLista
     }
 
-    const fotos = this.state.fotos
-    .map(foto => foto.id === fotoAtualizada.id ? fotoAtualizada : foto);
-
-    this.setState({fotos});
+    this.atualizaFotos(fotoAtualizada);
   }
 
   adicionaComentario(idFoto, valorComentario, inputComentario){
-    const foto  = this.state.fotos.find(foto => foto.id === idFoto);
+    const foto  = this.buscarPorId(idFoto);
 
     if(valorComentario === '') return;
 
@@ -68,10 +75,7 @@ export default class App extends Component {
         comentarios: novaLista
     };
 
-    const fotos = this.state.fotos
-    .map(foto => foto.id === fotoAtualizada.id ? fotoAtualizada : foto);
-
-    this.setState({fotos});
+    this.atualizaFotos(fotoAtualizada);
     inputComentario.clear();
   }
 
