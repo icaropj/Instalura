@@ -52,13 +52,37 @@ export default class App extends Component {
     this.setState({fotos});
   }
 
+  adicionaComentario(idFoto, valorComentario, inputComentario){
+    const foto  = this.state.fotos.find(foto => foto.id === idFoto);
+
+    if(valorComentario === '') return;
+
+    const novaLista = [...foto.comentarios, {
+        id:valorComentario,
+        login:'meuUsuario',
+        texto:valorComentario
+    }];
+
+    const fotoAtualizada = {
+        ...foto,
+        comentarios: novaLista
+    };
+
+    const fotos = this.state.fotos
+    .map(foto => foto.id === fotoAtualizada.id ? fotoAtualizada : foto);
+
+    this.setState({fotos});
+    inputComentario.clear();
+  }
+
   render() {
     return (
       <FlatList style={styles.container}
       keyExtractor={item => item.id}
         data={this.state.fotos}
         renderItem={ ({item}) =>
-          <Post foto={item} likeCallback={this.like.bind(this)}/>
+          <Post foto={item} likeCallback={this.like.bind(this)} 
+          comentarioCallback={this.adicionaComentario.bind(this)}/>
         }
       />
     );
