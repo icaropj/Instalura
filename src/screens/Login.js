@@ -13,6 +13,8 @@ import {
     AsyncStorage
 } from 'react-native';
 
+import CustomInput from '../components/CustomInput';
+
 const width = Dimensions.get('screen').width;
 
 export default class Login extends Component {
@@ -60,13 +62,13 @@ export default class Login extends Component {
                 <Text style={styles.titulo}>Instalura</Text>
                 <View style={styles.form}>
 
-                    <TextInput style={styles.input} placeholder="Usuário..."
-                        onChangeText={texto => this.setState({usuario : texto})}
-                        underlineColorAndroid="transparent" autoCapitalize="none"/>
+                    <CustomInput placeholder="Usuário..."
+                        onChange={texto => this.setState({usuario : texto})}
+                        capitalize="none"/>
 
-                    <TextInput style={styles.input} placeholder="Senha..."
-                        onChangeText={texto => this.setState({senha : texto})}
-                        underlineColorAndroid="transparent" secureTextEntry={true}/>
+                    <CustomInput placeholder="Senha..."
+                        onChange={texto => this.setState({senha : texto})}
+                        capitalize="none" secure={true}/>
 
                     <Button title="Login"
                         onPress={this.efetuaLogin.bind(this)}/>
@@ -94,11 +96,6 @@ const styles = StyleSheet.create({
     },
     form:{
         width:width * 0.8
-    },
-    input: {
-        height:40,
-        borderBottomWidth: 1,
-        borderBottomColor: '#ddd',
     },
     mensagem:{
         marginTop:15,
