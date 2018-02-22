@@ -54,6 +54,11 @@ export default class Login extends Component {
                     token: token
                 }
                 AsyncStorage.setItem('usuario', JSON.stringify(usuario));
+
+                this.props.navigator.push({
+                    screen:'Feed',
+                    title:"InstaAlura"
+                });
             })
             .catch(e => this.setState({mensagem: e.message}));
     }
