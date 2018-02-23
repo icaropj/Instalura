@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import {
-  Platform,
-  StyleSheet,
   Text,
   Image,
   View,
@@ -81,7 +79,7 @@ export default class Feed extends Component {
 
   render() {
     return (
-      <FlatList style={styles.container}
+      <FlatList 
       keyExtractor={item => item.id}
         data={this.state.fotos}
         renderItem={ ({item}) =>
@@ -93,10 +91,4 @@ export default class Feed extends Component {
   }
 }
 
-const margin = Platform.OS === 'ios' ? 20 : 0;
-const styles = StyleSheet.create({
-  container:{
-    marginTop:margin
-  }
-});
 
