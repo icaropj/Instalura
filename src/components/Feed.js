@@ -21,8 +21,9 @@ export default class Feed extends Component {
   componentDidMount(){
     const uri = 'http://10.0.2.2:8080/api/fotos';
 
-    AsyncStorage.getItem('token')
-      .then(token => {
+    AsyncStorage.getItem('usuario')
+      .then(usuario => {
+        const token = JSON.parse(usuario).token;
         return {
           headers: new Headers({'X-AUTH-TOKEN': token})
         }
