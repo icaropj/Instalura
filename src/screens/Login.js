@@ -55,7 +55,7 @@ export default class Login extends Component {
                 }   
                 AsyncStorage.setItem('usuario', JSON.stringify(usuario));
 
-                this.props.navigator.push({
+                this.props.navigator.resetTo({
                     screen:'Feed',
                     title:"InstaAlura"
                 });
