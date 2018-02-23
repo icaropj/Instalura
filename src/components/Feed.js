@@ -3,7 +3,8 @@ import {
   Text,
   Image,
   View,
-  FlatList
+  FlatList,
+  AsyncStorage
 } from 'react-native';
 
 import Post from './Post';
@@ -18,7 +19,15 @@ export default class Feed extends Component {
   }
 
   componentDidMount(){
-    fetch('http://10.0.2.2:8080/api/public/fotos/alots')
+    const uri = 'http://10.0.2.2:8080/api/fotos';
+
+    AsyncStorage.getItem('token')
+      .then(token => {
+        return {
+          headers: new Headers({'X-AUTH-TOKEN': token})
+        }
+      })
+      .then(requestInfo => fetch(uri, requestInfo))
       .then(res => res.json())
       .then(fotos => this.setState({fotos}))
   }
