@@ -29,7 +29,7 @@ export default class Login extends Component {
     }
 
     efetuaLogin(){
-        const uri = 'https://instalura-api.herokuapp.com/api/public/login';
+        const uri = 'http://10.0.2.2:8080/api/public/login';
         const requestInfo = {
             method:'POST',
             body: JSON.stringify({
@@ -52,7 +52,7 @@ export default class Login extends Component {
                 const usuario = {
                     nome: this.state.usuario,
                     token: token
-                }
+                }   
                 AsyncStorage.setItem('usuario', JSON.stringify(usuario));
 
                 this.props.navigator.push({

@@ -20,7 +20,7 @@ export default class Feed extends Component {
   }
 
   componentDidMount(){
-    fetch('https://instalura-api.herokuapp.com/api/public/fotos/alots')
+    fetch('http://10.0.2.2:8080/api/public/fotos/alots')
       .then(res => res.json())
       .then(fotos => this.setState({fotos}))
   }
