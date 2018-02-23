@@ -46,25 +46,43 @@ export default class Feed extends Component {
   like(idFoto){
     const foto  = this.buscarPorId(idFoto);
     
-    let novaLista = [];
-    if(!foto.isLiked){
-        novaLista = [
-            ...foto.likers,
-            {login:'meuUsuario'}
-        ]
-    }else{
-        novaLista = foto.likers.filter(liker => {
-            return liker.login !== 'meuUsuario'
-        })
-    }
+    AsyncStorage.getItem('usuario')
+      .then(usuario => {
+        const usuarioLogado = JSON.parse(usuario).nome;
 
-    const fotoAtualizada = {
-        ...foto,
-        isLiked: !foto.isLiked,
-        likers: novaLista
-    }
+        let novaLista = [];
+        if(!foto.likeada){
+            novaLista = [
+                ...foto.likers,
+                {login:usuarioLogado}
+            ]
+        }else{
+            novaLista = foto.likers.filter(liker => {
+                return liker.login !== usuarioLogado
+            })
+        }
 
-    this.atualizaFotos(fotoAtualizada);
+        return novaLista;
+      }).then(novaLista => {
+        const fotoAtualizada = {
+          ...foto,
+          likeada: !foto.likeada,
+          likers: novaLista
+        }
+        this.atualizaFotos(fotoAtualizada);
+      
+      });
+
+      const uri = `http://10.0.2.2:8080/api/fotos/${idFoto}/like`;
+      AsyncStorage.getItem('usuario')
+      .then(usuario => {
+        const token = JSON.parse(usuario).token;
+        return {
+          method:'POST',
+          headers: new Headers({'X-AUTH-TOKEN': token})
+        }
+      })
+      .then(requestInfo => fetch(uri, requestInfo))
   }
 
   adicionaComentario(idFoto, valorComentario, inputComentario){

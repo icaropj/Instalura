@@ -11,8 +11,8 @@ import {
 
 export default class Likes extends Component {
 
-    carregaIcone(isLiked){
-        return isLiked ? require('../../resources/img/s2-checked.png') : 
+    carregaIcone(likeada){
+        return likeada ? require('../../resources/img/s2-checked.png') : 
             require('../../resources/img/s2.png')
     }
 
@@ -32,7 +32,7 @@ export default class Likes extends Component {
                 <TouchableOpacity 
                     onPress={() => {likeCallback(foto.id)}}>
                     <Image style={styles.botaoLike} 
-                        source={this.carregaIcone(foto.isLiked)}/>
+                        source={this.carregaIcone(foto.likeada)}/>
                 </TouchableOpacity>
 
                 {this.exibeLikes(foto.likers)}
